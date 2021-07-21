@@ -10,7 +10,7 @@ class ShelfChanger extends React.Component {
          * users can use the browser's back and forward buttons to navigate between
          * pages, as well as provide a good URL they can bookmark and share.
          */
-        value: "move",
+        value: "none",
     }
     async componentDidMount() {
         if (this.props.book.shelf === undefined) {
