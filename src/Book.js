@@ -15,15 +15,28 @@ class Book extends React.Component {
 
     render() {
         const { book, onShelfChanger } = this.props;
+        let authorsString = '';
+        const authors = book.authors;
+        if (authors !== undefined && authors.length > 0) {
+            const authorsLength = book.authors.length;
+            for (let index = 0; index < authorsLength; index++) {
+                const author = authors[index];
+                if (index === authorsLength - 1) {
+                    authorsString += `${author}`;
+                } else {
+                    authorsString += `${author}, `;
+                }
+            }
+        }
         return (
             <li key={book.id}>
                 <div className="book">
                     <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
-                        <ShelfChanger book={book} onShelfChanger={onShelfChanger}></ShelfChanger>
+                        <ShelfChanger books={this.props.books} book={book} onShelfChanger={onShelfChanger}></ShelfChanger>
                     </div>
                     <div className="book-title">{book.title}</div>
-                    <div className="book-authors">{book.authors !== undefined && book.authors.length > 0 && book.authors[0]}</div>
+                    <div className="book-authors">{authorsString}</div>
                 </div>
             </li>
         )
@@ -31,6 +44,7 @@ class Book extends React.Component {
 }
 Book.propTypes = {
     book: PropTypes.object.isRequired,
+    books: PropTypes.array.isRequired,
     onShelfChanger: PropTypes.func.isRequired,
 };
 export default Book

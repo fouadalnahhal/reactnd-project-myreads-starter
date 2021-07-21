@@ -12,9 +12,16 @@ class ShelfChanger extends React.Component {
          */
         value: "move",
     }
-    // async componentDidMount() {
-    //     this.setState({ value: this.props.book.shelf });
-    //   }
+    async componentDidMount() {
+        if (this.props.book.shelf === undefined) {
+            const exsistingBook = this.props.books.filter(book => book.id === this.props.book.id);
+            if (exsistingBook !== undefined && exsistingBook.length > 0) {
+                this.setState({ value: exsistingBook[0].shelf });
+            }
+        } else {
+            this.setState({ value: this.props.book.shelf });
+        }
+    }
     handleChange = (event) => {
         this.setState({ value: event.target.value });
         this.props.onShelfChanger(this.props.book, event.target.value)
@@ -35,6 +42,8 @@ class ShelfChanger extends React.Component {
     }
 }
 ShelfChanger.propTypes = {
+    book: PropTypes.object.isRequired,
+    books: PropTypes.array.isRequired,
     onShelfChanger: PropTypes.func.isRequired,
 };
 export default ShelfChanger

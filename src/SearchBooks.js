@@ -48,7 +48,7 @@ class SearchBooks extends React.Component {
                 <div className="search-books-results">
                     <ol className="books-grid">
                         {this.state.books.length > 0 && (this.state.books.map((book, index) => 
-                        <Book key={index} book={book} onShelfChanger={this.props.onShelfChanger} ></Book>))}
+                        <Book books={this.props.books} key={index} book={book} onShelfChanger={this.props.onShelfChanger} ></Book>))}
                     </ol>
                 </div>
 
@@ -58,5 +58,6 @@ class SearchBooks extends React.Component {
 }
 SearchBooks.propTypes = {
     onShelfChanger: PropTypes.func.isRequired,
+    books: PropTypes.array.isRequired,
 };
 export default SearchBooks
