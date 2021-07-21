@@ -32,7 +32,7 @@ class Book extends React.Component {
             <li key={book.id}>
                 <div className="book">
                     <div className="book-top">
-                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
+                        <div className="book-cover" style={ {width: 128, height: 193, backgroundImage: `url(${book.imageLinks !== undefined && book.imageLinks.smallThumbnail!== undefined && book.imageLinks.smallThumbnail})` }}></div>
                         <ShelfChanger books={this.props.books} book={book} onShelfChanger={onShelfChanger}></ShelfChanger>
                     </div>
                     <div className="book-title">{book.title}</div>
