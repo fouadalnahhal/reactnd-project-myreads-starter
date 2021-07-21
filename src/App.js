@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookShelf from './BookShelf'
 import SearchBooks from './SearchBooks'
+import { Link, Route } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   state = {
@@ -25,17 +26,19 @@ class BooksApp extends React.Component {
     BooksAPI.update(book, newShelf);
     book.shelf = newShelf;
     const books = this.state.books.filter((b) => b.id !== book.id).concat(book);
-    this.setState({ books:  books});
+    this.setState({ books: books });
   };
   handleCloseSearch = () => this.setState({ showSearchPage: false });
   handleOpenSearch = () => this.setState({ showSearchPage: true });
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
-          <SearchBooks books={this.state.books} handleCloseSearch={this.handleCloseSearch} onShelfChanger={this.changeShelf}></SearchBooks>
-        ) : (
-          <div className="list-books">
+        <Route exact path='/search' render={() => {
+          return <SearchBooks books={this.state.books} handleCloseSearch={this.handleCloseSearch} onShelfChanger={this.changeShelf}></SearchBooks>
+        }}>
+        </Route>
+        <Route exact path='/' render={() => {
+          return <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
@@ -46,11 +49,17 @@ class BooksApp extends React.Component {
                 <BookShelf books={this.state.books.filter(book => book.shelf === "read")} shelf="Read" onShelfChanger={this.changeShelf}></BookShelf>
               </div>
             </div>
+            <Link to="/search">
             <div className="open-search">
-              <button onClick={this.handleOpenSearch}>Add a book</button>
+              <button >Add a book</button>
             </div>
+            </Link>
           </div>
-        )}
+        }}></Route>
+        {/* {this.state.showSearchPage ? (
+        ) : (
+          
+        )} */}
       </div>
     )
   }

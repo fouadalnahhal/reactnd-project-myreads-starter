@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
+import { Link } from 'react-router-dom'
 
 class SearchBooks extends React.Component {
     state = {
@@ -28,7 +29,10 @@ class SearchBooks extends React.Component {
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <button className="close-search" onClick={this.props.handleCloseSearch}>Close</button>
+                    <Link to="/">
+                    <button className="close-search">Close</button>
+                    </Link>
+
                     <div className="search-books-input-wrapper">
                         {
                             /*
@@ -47,8 +51,8 @@ class SearchBooks extends React.Component {
 
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {this.state.books.length > 0 && (this.state.books.map((book, index) => 
-                        <Book books={this.props.books} key={index} book={book} onShelfChanger={this.props.onShelfChanger} ></Book>))}
+                        {this.state.books.length > 0 && (this.state.books.map((book, index) =>
+                            <Book books={this.props.books} key={index} book={book} onShelfChanger={this.props.onShelfChanger} ></Book>))}
                     </ol>
                 </div>
 
